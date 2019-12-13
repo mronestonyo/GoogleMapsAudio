@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 public class BluetoothReceiverImpl extends BroadcastReceiver {
@@ -17,10 +18,10 @@ public class BluetoothReceiverImpl extends BroadcastReceiver {
             String action = intent.getAction();
             if (action != null) {
                 if (BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)) {
-                    Toast.makeText(context, "ACL is now connected", Toast.LENGTH_SHORT).show();
+                    Log.d("antonhttp", "ACL is now Connected");
                     isBluetoothConnected = true;
                 } else if (BluetoothDevice.ACTION_ACL_DISCONNECTED.equals(action)) {
-                    Toast.makeText(context, "ACL is now Disconnected", Toast.LENGTH_SHORT).show();
+                    Log.d("antonhttp", "ACL is now Disconnected");
                     isBluetoothConnected = false;
 
                     if (bluetoothListener != null)
