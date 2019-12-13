@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         boolean isOn = ((ToggleButton) view).isChecked();
         String TTS_STRING = "“This app demonstrates how audio can be played over a phone’s speaker\n" +
                 "even when the phone is connected to Bluetooth";
-        if (isOn) {
+//        if (isOn) {
             if ((BluetoothReceiverImpl.isBluetoothConnected == true) || (devices.size() > 0)) {
                 audioManager.setMode(audioManager.MODE_IN_COMMUNICATION);
                 audioManager.stopBluetoothSco();
@@ -79,12 +79,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 btnPlayAudio.setChecked(false);
                 playHardcodedMessage(TTS_STRING);
             }
-        } else {
-            audioManager.setMode(audioManager.MODE_NORMAL);
-            audioManager.stopBluetoothSco();
-            audioManager.setBluetoothScoOn(false);
-            audioManager.setSpeakerphoneOn(true);
-        }
+//        }
+//        else {
+//            audioManager.setMode(audioManager.MODE_NORMAL);
+//            audioManager.stopBluetoothSco();
+//            audioManager.setBluetoothScoOn(false);
+//            audioManager.setSpeakerphoneOn(true);
+//        }
 
     }
 
@@ -118,14 +119,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void clearDevices() {
-        for (BluetoothDevice device : devices) {
-            try {
-                Method m = device.getClass()
-                        .getMethod("removeBond", (Class[]) null);
-                m.invoke(device, (Object[]) null);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+//        for (BluetoothDevice device : devices) {
+//            try {
+//                Method m = device.getClass()
+//                        .getMethod("removeBond", (Class[]) null);
+//                m.invoke(device, (Object[]) null);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 }
