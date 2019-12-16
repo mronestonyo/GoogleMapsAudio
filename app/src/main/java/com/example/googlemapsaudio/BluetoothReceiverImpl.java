@@ -2,6 +2,7 @@ package com.example.googlemapsaudio;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothHeadset;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +27,13 @@ public class BluetoothReceiverImpl extends BroadcastReceiver {
 
                     if (bluetoothListener != null)
                         bluetoothListener.clearDevices();
+                } else if (action.equals(BluetoothHeadset.STATE_AUDIO_CONNECTED)) {
+                    int isConnected = intent.getIntExtra(BluetoothHeadset.EXTRA_STATE, BluetoothHeadset.STATE_AUDIO_DISCONNECTED);
+                    if (isConnected == BluetoothHeadset.STATE_AUDIO_CONNECTED) {
+                        isBluetoothConnected = true;
+                    } else if (isConnected == BluetoothHeadset.STATE_AUDIO_DISCONNECTED) {
+                        isBluetoothConnected = false;
+                    }
                 }
 
                 if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
@@ -35,6 +43,7 @@ public class BluetoothReceiverImpl extends BroadcastReceiver {
                     switch (state) {
                         case BluetoothAdapter.STATE_OFF:
                             //Toast.makeText(context, "Bluetooth off", Toast.LENGTH_SHORT).show();
+                            isBluetoothConnected = false;
                             if (bluetoothListener != null)
                                 bluetoothListener.clearDevices();
                             break;
@@ -42,6 +51,7 @@ public class BluetoothReceiverImpl extends BroadcastReceiver {
                             //Toast.makeText(context, "Turning Bluetooth off...", Toast.LENGTH_SHORT).show();
                             break;
                         case BluetoothAdapter.STATE_ON:
+                            isBluetoothConnected = true;
                             //Toast.makeText(context, "Bluetooth on", Toast.LENGTH_SHORT).show();
                             break;
                         case BluetoothAdapter.STATE_TURNING_ON:
